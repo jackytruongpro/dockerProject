@@ -1,0 +1,26 @@
+version: '3.3'
+
+volumes:
+  bundle:
+  db:
+
+services:
+  apache:
+    hostname: jackyApache4
+    container_name: jackyApache4
+    build: ./containers/apache
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - './src/:/usr/local/apache2/htdocs'
+  php:
+    container_name: jacky_php
+    hostname: jacky_php
+    build: ./containers/php
+  db:
+    image: nouchka/sqlite3:latest
+    volumes:
+      - db:/root/db
+    stdin_open: true
+    tty: true
